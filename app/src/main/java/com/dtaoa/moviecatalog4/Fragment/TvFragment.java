@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dtaoa.moviecatalog4.Adapter.DataAdapter;
+import com.dtaoa.moviecatalog4.DetailActivity;
 import com.dtaoa.moviecatalog4.R;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;
 import com.dtaoa.moviecatalog4.ViewModel.MainViewModel;
@@ -90,9 +91,9 @@ public class TvFragment extends Fragment {
     }
 
     private void showDetail(DataModel data){
-        Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();
-        //Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
-        //detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
-        //startActivity(detailIntent);
+        //Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+        detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
+        startActivity(detailIntent);
     }
 }

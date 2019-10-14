@@ -95,9 +95,9 @@ public class MovieFragment extends Fragment {
     }
 
     private void showDetail(DataModel data){
-        Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();
-        //Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
-        //detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
-        //startActivity(detailIntent);
+        //Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+        detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
+        startActivity(detailIntent);
     }
 }
