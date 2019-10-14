@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dtaoa.moviecatalog4.Adapter.ViewPagerAdapter;
 import com.dtaoa.moviecatalog4.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -23,6 +24,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FavoriteFragment extends Fragment {
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     public FavoriteFragment() {
         // Required empty public constructor
@@ -33,10 +36,10 @@ public class FavoriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.view_pager_fav);
+        viewPager = view.findViewById(R.id.view_pager_fav);
         setupViewPager(viewPager);
-        TabLayout tabs = (TabLayout) view.findViewById(R.id.tab_layout_fav);
-        tabs.setupWithViewPager(viewPager);
+        tabLayout = view.findViewById(R.id.tab_layout_fav);
+        tabLayout.setupWithViewPager(viewPager);
 
         return view;
     }
@@ -47,41 +50,13 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
 
-        Adapter adapter = new Adapter(getChildFragmentManager());
-        adapter.addFragment(new FavMovieFragment(), getString(R.string.title_movie));
-        adapter.addFragment(new FavTvFragment(), getString(R.string.title_tv));
+        //add fragment
+        adapter.AddFragment(new FavMovieFragment(), getString(R.string.lbl_tab_movie));
+        adapter.AddFragment(new FavTvFragment(), getString(R.string.lbl_tab_tv_show));
+
         viewPager.setAdapter(adapter);
-
-    }
-
-    static class Adapter extends FragmentPagerAdapter{
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public Adapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
 
     }
 }
