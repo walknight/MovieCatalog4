@@ -16,6 +16,7 @@
     <string name="lbl_genre">Genre</string>
     <string name="lbl_year">2019</string>
     <string name="dialog_title">Choose Language</string>
+    <string name="del_favorite">Delete</string>
 
     <!-- FRAGMENT DEFAULT TEXT -->
     <string name="hello_movie_fragment">Hello Movie Fragment</string>
@@ -28,7 +29,5 @@
     <string name="path_thumbnail">https://image.tmdb.org/t/p/w185/</string>
     <string name="path_poster">https://image.tmdb.org/t/p/w780/</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

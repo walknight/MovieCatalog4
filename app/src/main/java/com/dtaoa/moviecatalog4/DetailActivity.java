@@ -16,6 +16,7 @@ import com.dtaoa.moviecatalog4.Db.FavoriteHelper;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;
 
 import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.GENRE;
+import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.POSTER;
 import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.RATINGS;
 import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.SINOPSIS;
 import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.THUMBNAIL;
@@ -27,17 +28,32 @@ public class DetailActivity extends AppCompatActivity {
 
     ImageView imgPoster, imgThumbnail;
     TextView txtTitle, txtSinopsis, txtReleaseYear, txtRatings;
-    DataModel selectedData = getIntent().getParcelableExtra(EXTRA_DATA);
+    FavoriteHelper favoriteHelper;
+    DataModel selectedData;
 
     public static final String EXTRA_DATA = "extra_move";
     public static final String EXTRA_TYPE = "type";
+    public static final String EXTRA_FAVORITE = "Y";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         String [] releaseDate;
+        MenuItem itemBtn;
+        Menu menu;
 
+        selectedData = getIntent().getParcelableExtra(EXTRA_DATA);
+
+        favoriteHelper = FavoriteHelper.getInstance(getApplicationContext());
+        favoriteHelper.open();
+
+        if(EXTRA_FAVORITE.equals("Y")){
+            //setting Delete
+            
+        } else {
+            //setting icon favorite
+        }
 
         if(selectedData != null){
 
@@ -83,29 +99,51 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        if (item.getItemId() == R.id.bt_ic_fav){
-            //save to sqlite
-            ContentValues values = new ContentValues();
-            values.put(TITLE, selectedData.getTitle() );
-            values.put(SINOPSIS, selectedData.getSinopsis());
-            values.put(GENRE, selectedData.getGenre());
-            values.put(YEAR, selectedData.getYear());
-            values.put(RATINGS, selectedData.getRatings());
-            values.put(THUMBNAIL, selectedData.getImageThumbnail());
-            values.put(TYPE, EXTRA_TYPE);
-            long result = FavoriteHelper.insert(values);
-            if(result > 0){
-                Toast.makeText(this, selectedData.getTitle() + " telah ditambahkan kedalam favorit", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Gagal menambah favorit", Toast.LENGTH_SHORT).show();
-            }
-        }
 
-        if(item.getItemId()== android.R.id.home) {
-
-            finish();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.bt_ic_fav:
+                saveFavorite();
+                break;
+            case R.id.bt_ic_delete:
+                deleteFavorite();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteFavorite(){
+
+    }
+
+    private void saveFavorite(){
+        selectedData = getIntent().getParcelableExtra(EXTRA_DATA);
+        String type = getIntent().getStringExtra(EXTRA_TYPE);
+
+        ContentValues values = new ContentValues();
+        values.put(TITLE, selectedData.getTitle() );
+        values.put(SINOPSIS, selectedData.getSinopsis());
+        values.put(GENRE, selectedData.getGenre());
+        values.put(YEAR, selectedData.getYear());
+        values.put(RATINGS, selectedData.getRatings());
+        values.put(THUMBNAIL, selectedData.getImageThumbnail());
+        values.put(POSTER, selectedData.getImagePoster());
+        values.put(TYPE, type);
+        long result = FavoriteHelper.insert(values);
+
+        if(result > 0){
+            Toast.makeText(this, selectedData.getTitle() + " telah ditambahkan kedalam favorit", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Gagal menambah favorit", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        favoriteHelper.close();
     }
 }

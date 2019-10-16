@@ -26,26 +26,8 @@ public class FavoriteFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        viewPager = view.findViewById(R.id.view_pager_fav);
-        setupViewPager(viewPager);
-        tabLayout = view.findViewById(R.id.tab_layout_fav);
-        tabLayout.setupWithViewPager(viewPager);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
 
         //add fragment
         adapter.AddFragment(new FavMovieFragment(), getString(R.string.lbl_tab_movie));
@@ -53,5 +35,22 @@ public class FavoriteFragment extends Fragment {
 
         viewPager.setAdapter(adapter);
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_favorite, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        viewPager = view.findViewById(R.id.view_pager_fav);
+        setupViewPager(viewPager);
+        tabLayout = view.findViewById(R.id.tab_layout_fav);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

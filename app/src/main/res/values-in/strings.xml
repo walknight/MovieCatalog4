@@ -17,6 +17,7 @@
     <string name="lbl_genre">Kategori Film</string>
     <string name="lbl_year">2019</string>
     <string name="dialog_title">Pilih Bahasa</string>
+    <string name="del_favorite">Hapus</string>
 
     <!-- FRAGMENT DEFAULT TEXT -->
     <string name="hello_movie_fragment">Halo Film Fragment</string>

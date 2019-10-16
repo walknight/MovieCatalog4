@@ -107,6 +107,19 @@ public class Favorite implements Parcelable {
     public Favorite() {
     }
 
+    public Favorite(int id, String title, String sinopsis, String genre, String year, String ratings, String poster, String thumbnail, String type){
+        this.id = id;
+        this.title = title;
+        this.sinopsis = sinopsis;
+        this.genre = genre;
+        this.year = year;
+        this.ratings = ratings;
+        this.imagePoster = poster;
+        this.imageThumbnail = thumbnail;
+        this.type = type;
+
+    }
+
     protected Favorite(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();

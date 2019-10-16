@@ -8,4 +8,10 @@
         android:icon="@drawable/ic_favorite"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/bt_ic_delete"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/del_favorite"
+        app:showAsAction ="always" />
+
 </menu>

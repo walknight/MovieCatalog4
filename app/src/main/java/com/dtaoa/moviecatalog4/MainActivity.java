@@ -1,10 +1,10 @@
 package com.dtaoa.moviecatalog4;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.res.Configuration;
@@ -25,6 +25,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+
     AlertDialog dialogLang;
     int checkedItem = 0;
     CharSequence[] options = {"Bahasa", "English"};
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView navigationBottom = findViewById(R.id.btm_navigation);
         navigationBottom.setOnNavigationItemSelectedListener(this);
 
+        loadFragment(new MovieFragment());
+
         if(savedInstanceState == null){
             navigationBottom.setSelectedItemId(R.id.navigation_movie);
         }
@@ -47,35 +50,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment fragment;
-        String fragmentName;
 
         switch (menuItem.getItemId()){
             case R.id.navigation_movie:
-                fragment = new MovieFragment();
-                fragmentName = fragment.getClass().getSimpleName();
-
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container_layout, fragment, fragmentName)
-                        .commit();
+                loadFragment(new MovieFragment());
                 setTitle(R.string.app_name);
                 return true;
 
             case R.id.navigation_tv:
-                fragment = new TvFragment();
-                fragmentName = fragment.getClass().getSimpleName();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container_layout, fragment, fragmentName)
-                        .commit();
+                loadFragment(new TvFragment());
                 setTitle(R.string.app_name);
                 return true;
 
             case R.id.navigation_favorite:
-                fragment = new FavoriteFragment();
-                fragmentName = fragment.getClass().getSimpleName();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container_layout, fragment, fragmentName)
-                        .commit();
+                loadFragment(new FavoriteFragment());
                 setTitle(R.string.title_favorite);
                 return true;
         }
@@ -95,6 +83,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //load fragment
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container_layout, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     //create dialog

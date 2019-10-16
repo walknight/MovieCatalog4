@@ -98,6 +98,8 @@ public class MovieFragment extends Fragment {
         //Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();
         Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
         detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
+        detailIntent.putExtra(DetailActivity.EXTRA_TYPE, "movie");
+        detailIntent.putExtra(DetailActivity.EXTRA_FAVORITE, "N");
         startActivity(detailIntent);
     }
 }
