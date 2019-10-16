@@ -38,6 +38,7 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
     private ArrayList<DataModel> dataTv;
     private FavoriteAdapter adapter;
     private ProgressBar favProgressBar;
+    private static String FRAGMENT_TAG = null;
 
     private FavoriteHelper favHelper;
 
@@ -70,6 +71,23 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
 
         new LoadDataTvAsync(favHelper, this).execute();
 
+        adapter.setOnItemClickCallback(new FavoriteAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(DataModel data) {
+                showDetail(data);
+            }
+        });
+
+    }
+
+    private void showDetail(DataModel data){
+        //Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+        detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
+        detailIntent.putExtra(DetailActivity.EXTRA_TYPE, "movie");
+        detailIntent.putExtra(DetailActivity.EXTRA_FAVORITE, "Y");
+        detailIntent.putExtra(DetailActivity.EXTRA_POSITION, FRAGMENT_TAG);
+        startActivityForResult(detailIntent, 1);
     }
 
     @Override

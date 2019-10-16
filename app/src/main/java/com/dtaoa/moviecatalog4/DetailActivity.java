@@ -135,6 +135,11 @@ public class DetailActivity extends AppCompatActivity {
     private void deleteFavorite(final long id){
         long result= favoriteHelper.deleteById(String.valueOf(id));
         if (result > 0) {
+            String getEkstra = getIntent().getStringExtra(EXTRA_POSITION);
+            Log.d("TAG", getEkstra);
+            Intent intent = new Intent();
+            intent.putExtra("id", getEkstra);
+            setResult(RESULT_OK, intent);
             finish();
             Toast.makeText(DetailActivity.this, R.string.msg_delete_success, Toast.LENGTH_SHORT).show();
         } else {

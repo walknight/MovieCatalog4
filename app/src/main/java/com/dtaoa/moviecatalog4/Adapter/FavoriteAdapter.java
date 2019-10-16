@@ -25,6 +25,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private ArrayList<DataModel> listFavorite = new ArrayList<>();
     private Activity activity;
+    private OnItemClickCallback onItemClickCallback;
 
     public FavoriteAdapter(Activity activity){
         this.activity = activity;
@@ -71,19 +72,21 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                 .apply(new RequestOptions().override(100, 140))
                 .into(holder.imgThumbnail);
 
-        holder.itemView.setOnClickListener(new ClickFavListener(position, new ClickFavListener.OnItemClickCallback() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClicked(View view, int position) {
-                Intent detailIntent = new Intent(activity, DetailActivity.class);
-                detailIntent.putExtra(DetailActivity.EXTRA_DATA, listFavorite.get(position));
-                detailIntent.putExtra(DetailActivity.EXTRA_TYPE, listFavorite.get(position).getType());
-                detailIntent.putExtra(DetailActivity.EXTRA_FAVORITE, "Y");
-                detailIntent.putExtra(DetailActivity.EXTRA_POSITION, position);
-                activity.startActivity(detailIntent);
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(listFavorite.get(holder.getAdapterPosition()));
             }
-        }));
+        });
 
+    }
 
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback;
+    }
+
+    public interface OnItemClickCallback{
+        void onItemClicked(DataModel data);
     }
 
     @Override

@@ -89,8 +89,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return super.onOptionsItemSelected(item);
     }
 
-    //load fragment
-    private void loadFragment(Fragment fragment) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Log.d("RESULT CODE", String.valueOf(requestCode));
+        if (resultCode == RESULT_OK) {
+            //String stredittext = data.getStringExtra("id");
+            //Log.d("RESULT MAIN", stredittext);
+            loadFragment(new FavoriteFragment());
+        }
+    }
+
+        //load fragment
+    public void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container_layout, fragment);
         transaction.addToBackStack(null);

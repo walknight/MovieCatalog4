@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 
 import com.dtaoa.moviecatalog4.Adapter.FavoriteAdapter;
 import com.dtaoa.moviecatalog4.Db.FavoriteHelper;
+import com.dtaoa.moviecatalog4.DetailActivity;
 import com.dtaoa.moviecatalog4.Helper.MappingHelper;
 import com.dtaoa.moviecatalog4.R;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;
@@ -37,6 +38,7 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
     private ArrayList<DataModel> dataMovie;
     private FavoriteAdapter adapter;
     private ProgressBar favProgressBar;
+    private static String FRAGMENT_TAG = null;
     private int position;
 
     private FavoriteHelper favHelper;
@@ -48,6 +50,7 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        FRAGMENT_TAG = getClass().getSimpleName();
         return inflater.inflate(R.layout.fragment_fav_movie, container, false);
     }
 
@@ -69,8 +72,23 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
 
         new LoadDataAsync(favHelper, this).execute();
 
+        adapter.setOnItemClickCallback(new FavoriteAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(DataModel data) {
+                showDetail(data);
+            }
+        });
 
+    }
 
+    private void showDetail(DataModel data){
+        //Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+        detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
+        detailIntent.putExtra(DetailActivity.EXTRA_TYPE, "movie");
+        detailIntent.putExtra(DetailActivity.EXTRA_FAVORITE, "Y");
+        detailIntent.putExtra(DetailActivity.EXTRA_POSITION, FRAGMENT_TAG);
+        startActivityForResult(detailIntent, 1);
     }
 
     private static class LoadDataAsync extends AsyncTask<Void, Void, ArrayList<DataModel>> {
