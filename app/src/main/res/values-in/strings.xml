@@ -18,6 +18,14 @@
     <string name="lbl_year">2019</string>
     <string name="dialog_title">Pilih Bahasa</string>
     <string name="del_favorite">Hapus</string>
+    <string name="msg_delete_success">Berhasil! hapus item.</string>
+    <string name="msg_delete_failed">Gagal! hapus item.</string>
+
+    <!-- DIALOG FAVORIT -->
+    <string name="titleDialog">Hapus Kesukaan</string>
+    <string name="messageDialog">Anda yakin mau menghapus item ini ?</string>
+    <string name="positiveButtonLabel">Ya</string>
+    <string name="negativeButtonLabel">Tidak</string>
 
     <!-- FRAGMENT DEFAULT TEXT -->
     <string name="hello_movie_fragment">Halo Film Fragment</string>

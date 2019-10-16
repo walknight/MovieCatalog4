@@ -1,6 +1,7 @@
 package com.dtaoa.moviecatalog4.Fragment;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,20 +12,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.dtaoa.moviecatalog4.Adapter.DataAdapter;
 import com.dtaoa.moviecatalog4.Adapter.FavoriteAdapter;
 import com.dtaoa.moviecatalog4.Db.FavoriteHelper;
 import com.dtaoa.moviecatalog4.Helper.MappingHelper;
 import com.dtaoa.moviecatalog4.R;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;
-import com.dtaoa.moviecatalog4.entity.Favorite;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -35,16 +34,16 @@ import java.util.ArrayList;
 public class FavMovieFragment extends Fragment implements LoadDataCallback {
 
     private RecyclerView rvFvMovie;
-    private ArrayList<Favorite> dataMovie;
+    private ArrayList<DataModel> dataMovie;
     private FavoriteAdapter adapter;
     private ProgressBar favProgressBar;
+    private int position;
 
     private FavoriteHelper favHelper;
 
     public FavMovieFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,9 +69,11 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
 
         new LoadDataAsync(favHelper, this).execute();
 
+
+
     }
 
-    private static class LoadDataAsync extends AsyncTask<Void, Void, ArrayList<Favorite>> {
+    private static class LoadDataAsync extends AsyncTask<Void, Void, ArrayList<DataModel>> {
 
         private final WeakReference<FavoriteHelper> weakFavHelper;
         private final WeakReference<LoadDataCallback > weakCallback;
@@ -89,13 +90,13 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
         }
 
         @Override
-        protected ArrayList<Favorite> doInBackground(Void... voids) {
+        protected ArrayList<DataModel> doInBackground(Void... voids) {
             Cursor dataCursor = weakFavHelper.get().getFavorite("movie");
             return MappingHelper.mapCursorToArrayList(dataCursor);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Favorite> itemModels) {
+        protected void onPostExecute(ArrayList<DataModel> itemModels) {
             super.onPostExecute(itemModels);
             weakCallback.get().postExecute(itemModels);
         }
@@ -110,6 +111,8 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
         }
     }
 
+
+
     @Override
     public void preExecute() {
         getActivity().runOnUiThread(new Runnable() {
@@ -121,17 +124,18 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
     }
 
     @Override
-    public void postExecute(ArrayList<Favorite> favModels) {
+    public void postExecute(ArrayList<DataModel> favModels) {
         favProgressBar.setVisibility(View.INVISIBLE);
         if (favModels.size() > 0) {
             adapter.setListFavorite(favModels);
         } else {
-            adapter.setListFavorite(new ArrayList<Favorite>());
+            adapter.setListFavorite(new ArrayList<DataModel>());
         }
     }
+
 }
 
 interface LoadDataCallback {
     void preExecute();
-    void postExecute(ArrayList<Favorite> favModels);
+    void postExecute(ArrayList<DataModel> favModels);
 }

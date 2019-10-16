@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DataModel implements Parcelable {
+    private int id;
     private String title;
     private String sinopsis;
     private String genre;
@@ -11,6 +12,23 @@ public class DataModel implements Parcelable {
     private String ratings;
     private String imagePoster;
     private String imageThumbnail;
+    private String type;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getTitle() {
         return title;
@@ -68,6 +86,22 @@ public class DataModel implements Parcelable {
         this.imageThumbnail = imageThumbnail;
     }
 
+    public DataModel() {
+    }
+
+    public DataModel(int id, String title, String sinopsis, String genre, String year, String ratings, String poster, String thumbnail, String type){
+        this.id = id;
+        this.title = title;
+        this.sinopsis = sinopsis;
+        this.genre = genre;
+        this.year = year;
+        this.ratings = ratings;
+        this.imagePoster = poster;
+        this.imageThumbnail = thumbnail;
+        this.type = type;
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -75,6 +109,7 @@ public class DataModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.sinopsis);
         dest.writeString(this.genre);
@@ -82,12 +117,11 @@ public class DataModel implements Parcelable {
         dest.writeString(this.ratings);
         dest.writeString(this.imagePoster);
         dest.writeString(this.imageThumbnail);
-    }
-
-    public DataModel() {
+        dest.writeString(this.type);
     }
 
     protected DataModel(Parcel in) {
+        this.id = in.readInt();
         this.title = in.readString();
         this.sinopsis = in.readString();
         this.genre = in.readString();
@@ -95,9 +129,10 @@ public class DataModel implements Parcelable {
         this.ratings = in.readString();
         this.imagePoster = in.readString();
         this.imageThumbnail = in.readString();
+        this.type = in.readString();
     }
 
-    public static final Parcelable.Creator<DataModel> CREATOR = new Parcelable.Creator<DataModel>() {
+    public static final Creator<DataModel> CREATOR = new Creator<DataModel>() {
         @Override
         public DataModel createFromParcel(Parcel source) {
             return new DataModel(source);

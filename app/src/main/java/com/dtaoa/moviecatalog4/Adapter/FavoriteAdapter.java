@@ -1,6 +1,7 @@
 package com.dtaoa.moviecatalog4.Adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,23 +14,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dtaoa.moviecatalog4.ClickFavListener;
+import com.dtaoa.moviecatalog4.DetailActivity;
 import com.dtaoa.moviecatalog4.R;
-import com.dtaoa.moviecatalog4.entity.Favorite;
+import com.dtaoa.moviecatalog4.ViewModel.DataModel;
 
 import java.util.ArrayList;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
 
-    private ArrayList<Favorite> listFavorite = new ArrayList<>();
+    private ArrayList<DataModel> listFavorite = new ArrayList<>();
     private Activity activity;
 
     public FavoriteAdapter(Activity activity){
         this.activity = activity;
     }
 
-    public ArrayList<Favorite> getListFavorite(){ return listFavorite; }
+    public ArrayList<DataModel> getListFavorite(){ return listFavorite; }
 
-    public void setListFavorite(ArrayList<Favorite> listFav){
+    public void setListFavorite(ArrayList<DataModel> listFav){
         if(listFav.size() > 0){
             this.listFavorite.clear();
         }
@@ -37,7 +40,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         notifyDataSetChanged();
     }
 
-    public void addItem(Favorite favorite){
+    public void addItem(DataModel favorite){
         this.listFavorite.add(favorite);
         notifyItemInserted(listFavorite.size() - 1);
     }
@@ -56,7 +59,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoriteViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final FavoriteViewHolder holder, final int position) {
         String year = listFavorite.get(position).getYear().split("-")[0];
 
         holder.textTitle.setText(listFavorite.get(position).getTitle());
@@ -68,12 +71,18 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                 .apply(new RequestOptions().override(100, 140))
                 .into(holder.imgThumbnail);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new ClickFavListener(position, new ClickFavListener.OnItemClickCallback() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, listFavorite.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            public void onItemClicked(View view, int position) {
+                Intent detailIntent = new Intent(activity, DetailActivity.class);
+                detailIntent.putExtra(DetailActivity.EXTRA_DATA, listFavorite.get(position));
+                detailIntent.putExtra(DetailActivity.EXTRA_TYPE, listFavorite.get(position).getType());
+                detailIntent.putExtra(DetailActivity.EXTRA_FAVORITE, "Y");
+                detailIntent.putExtra(DetailActivity.EXTRA_POSITION, position);
+                activity.startActivity(detailIntent);
             }
-        });
+        }));
+
 
     }
 

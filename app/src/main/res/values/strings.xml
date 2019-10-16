@@ -17,6 +17,15 @@
     <string name="lbl_year">2019</string>
     <string name="dialog_title">Choose Language</string>
     <string name="del_favorite">Delete</string>
+    <string name="msg_delete_success">Success! deleted item.</string>
+    <string name="msg_delete_failed">Failed! deleted item.</string>
+
+    <!-- DIALOG FAVORIT -->
+    <string name="titleDialog">Delete Favorite</string>
+    <string name="messageDialog">Are you soure to delete this item ?</string>
+    <string name="positiveButtonLabel">Yes</string>
+    <string name="negativeButtonLabel">No</string>
+
 
     <!-- FRAGMENT DEFAULT TEXT -->
     <string name="hello_movie_fragment">Hello Movie Fragment</string>

@@ -7,15 +7,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.dtaoa.moviecatalog4.Fragment.FavMovieFragment;
+import com.dtaoa.moviecatalog4.Fragment.FavTvFragment;
 import com.dtaoa.moviecatalog4.Fragment.FavoriteFragment;
 import com.dtaoa.moviecatalog4.Fragment.MovieFragment;
 import com.dtaoa.moviecatalog4.Fragment.TvFragment;
@@ -156,4 +160,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
+
 }

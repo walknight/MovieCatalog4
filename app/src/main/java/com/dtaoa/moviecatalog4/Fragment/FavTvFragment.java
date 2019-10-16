@@ -1,6 +1,7 @@
 package com.dtaoa.moviecatalog4.Fragment;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,9 +19,11 @@ import android.widget.ProgressBar;
 
 import com.dtaoa.moviecatalog4.Adapter.FavoriteAdapter;
 import com.dtaoa.moviecatalog4.Db.FavoriteHelper;
+import com.dtaoa.moviecatalog4.DetailActivity;
 import com.dtaoa.moviecatalog4.Helper.MappingHelper;
 import com.dtaoa.moviecatalog4.R;
-import com.dtaoa.moviecatalog4.entity.Favorite;
+import com.dtaoa.moviecatalog4.ViewModel.DataModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
 
 
     private RecyclerView rvFvTv;
-    private ArrayList<Favorite> dataTv;
+    private ArrayList<DataModel> dataTv;
     private FavoriteAdapter adapter;
     private ProgressBar favProgressBar;
 
@@ -66,9 +69,20 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
         favHelper.open();
 
         new LoadDataTvAsync(favHelper, this).execute();
+
     }
 
-    private static class LoadDataTvAsync extends AsyncTask<Void, Void, ArrayList<Favorite>> {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            if (resultCode == DetailActivity.RESULT_DELETE) {}
+            int position = data.getIntExtra(DetailActivity.EXTRA_POSITION, 0);
+            adapter.removeItem(position);
+        }
+    }
+
+    private static class LoadDataTvAsync extends AsyncTask<Void, Void, ArrayList<DataModel>> {
 
         private final WeakReference<FavoriteHelper> weakFavHelper;
         private final WeakReference<FavTvFragment> weakCallback;
@@ -85,13 +99,13 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
         }
 
         @Override
-        protected ArrayList<Favorite> doInBackground(Void... voids) {
+        protected ArrayList<DataModel> doInBackground(Void... voids) {
             Cursor dataCursor = weakFavHelper.get().getFavorite("tv");
             return MappingHelper.mapCursorToArrayList(dataCursor);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Favorite> itemModels) {
+        protected void onPostExecute(ArrayList<DataModel> itemModels) {
             super.onPostExecute(itemModels);
             weakCallback.get().postExecute(itemModels);
         }
@@ -117,12 +131,12 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
     }
 
     @Override
-    public void postExecute(ArrayList<Favorite> favModels) {
+    public void postExecute(ArrayList<DataModel> favModels) {
         favProgressBar.setVisibility(View.INVISIBLE);
         if (favModels.size() > 0) {
             adapter.setListFavorite(favModels);
         } else {
-            adapter.setListFavorite(new ArrayList<Favorite>());
+            adapter.setListFavorite(new ArrayList<DataModel>());
         }
     }
 
@@ -130,5 +144,5 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
 
 interface LoadDataTvCallback {
     void preExecute();
-    void postExecute(ArrayList<Favorite> favModels);
+    void postExecute(ArrayList<DataModel> favModels);
 }

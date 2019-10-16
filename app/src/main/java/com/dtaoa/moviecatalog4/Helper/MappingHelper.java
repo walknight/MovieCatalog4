@@ -2,7 +2,7 @@ package com.dtaoa.moviecatalog4.Helper;
 
 import android.database.Cursor;
 
-import com.dtaoa.moviecatalog4.entity.Favorite;
+import com.dtaoa.moviecatalog4.ViewModel.DataModel;
 
 import java.util.ArrayList;
 
@@ -18,8 +18,8 @@ import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.YEAR;
 
 public class MappingHelper {
 
-    public static ArrayList<Favorite> mapCursorToArrayList(Cursor favCursor){
-        ArrayList<Favorite> favoriteList = new ArrayList<>();
+    public static ArrayList<DataModel> mapCursorToArrayList(Cursor favCursor){
+        ArrayList<DataModel> favoriteList = new ArrayList<>();
         while(favCursor.moveToNext()){
             int id = favCursor.getInt(favCursor.getColumnIndexOrThrow(_ID));
             String title = favCursor.getString(favCursor.getColumnIndexOrThrow(TITLE));
@@ -30,7 +30,7 @@ public class MappingHelper {
             String imagePoster = favCursor.getString(favCursor.getColumnIndexOrThrow(POSTER));
             String imageThumbnail = favCursor.getString(favCursor.getColumnIndexOrThrow(THUMBNAIL));
             String type = favCursor.getString(favCursor.getColumnIndexOrThrow(TYPE));
-            favoriteList.add(new Favorite(id, title, sinopsis, genre, year, ratings, imagePoster, imageThumbnail, type));
+            favoriteList.add(new DataModel(id, title, sinopsis, genre, year, ratings, imagePoster, imageThumbnail, type));
         }
 
         return favoriteList;

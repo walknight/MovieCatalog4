@@ -95,6 +95,7 @@ public class TvFragment extends Fragment {
         Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
         detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
         detailIntent.putExtra(DetailActivity.EXTRA_TYPE, "tv");
+        detailIntent.putExtra(DetailActivity.EXTRA_FAVORITE, "N");
         startActivity(detailIntent);
     }
 }

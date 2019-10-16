@@ -1,9 +1,14 @@
 package com.dtaoa.moviecatalog4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.ContentValues;
+import android.content.Intent;
+import android.graphics.Movie;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -12,7 +17,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dtaoa.moviecatalog4.Adapter.FavoriteAdapter;
 import com.dtaoa.moviecatalog4.Db.FavoriteHelper;
+import com.dtaoa.moviecatalog4.Fragment.FavMovieFragment;
+import com.dtaoa.moviecatalog4.Fragment.FavTvFragment;
+import com.dtaoa.moviecatalog4.Fragment.MovieFragment;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;
 
 import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.GENRE;
@@ -34,26 +43,19 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_DATA = "extra_move";
     public static final String EXTRA_TYPE = "type";
     public static final String EXTRA_FAVORITE = "Y";
+    public static final String EXTRA_POSITION = "extra_position";
+    public static final int RESULT_DELETE = 301;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         String [] releaseDate;
-        MenuItem itemBtn;
-        Menu menu;
 
         selectedData = getIntent().getParcelableExtra(EXTRA_DATA);
 
         favoriteHelper = FavoriteHelper.getInstance(getApplicationContext());
         favoriteHelper.open();
-
-        if(EXTRA_FAVORITE.equals("Y")){
-            //setting Delete
-            
-        } else {
-            //setting icon favorite
-        }
 
         if(selectedData != null){
 
@@ -94,6 +96,21 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_favorite, menu);
+        String getFavorite = getIntent().getStringExtra(EXTRA_FAVORITE);
+        MenuItem btnIconFav = menu.findItem(R.id.bt_ic_fav);
+        MenuItem btnIconDel = menu.findItem(R.id.bt_ic_delete);
+
+        Log.d("FAVORITE", getFavorite);
+
+        if(getFavorite.equals("Y")){
+            btnIconDel.setVisible(true);
+            btnIconFav.setVisible(false);
+        }
+        else
+        {
+            btnIconDel.setVisible(false);
+            btnIconFav.setVisible(true);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -108,14 +125,21 @@ public class DetailActivity extends AppCompatActivity {
                 saveFavorite();
                 break;
             case R.id.bt_ic_delete:
-                deleteFavorite();
+                deleteFavorite(selectedData.getId());
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void deleteFavorite(){
+    private void deleteFavorite(final long id){
+        long result= favoriteHelper.deleteById(String.valueOf(id));
+        if (result > 0) {
+            finish();
+            Toast.makeText(DetailActivity.this, R.string.msg_delete_success, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(DetailActivity.this, R.string.msg_delete_failed, Toast.LENGTH_SHORT).show();
+        }
 
     }
 
