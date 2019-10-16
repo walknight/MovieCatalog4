@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
@@ -18,8 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.dtaoa.moviecatalog4.Fragment.FavMovieFragment;
-import com.dtaoa.moviecatalog4.Fragment.FavTvFragment;
 import com.dtaoa.moviecatalog4.Fragment.FavoriteFragment;
 import com.dtaoa.moviecatalog4.Fragment.MovieFragment;
 import com.dtaoa.moviecatalog4.Fragment.TvFragment;
@@ -29,6 +28,11 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    final Fragment fragmentMovie = new MovieFragment();
+    final Fragment fragmentTv = new TvFragment();
+    final Fragment fragmentFavorite = new FavoriteFragment();
+    final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = fragmentMovie;
 
     AlertDialog dialogLang;
     int checkedItem = 0;
@@ -44,7 +48,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView navigationBottom = findViewById(R.id.btm_navigation);
         navigationBottom.setOnNavigationItemSelectedListener(this);
 
-        loadFragment(new MovieFragment());
+        fm.beginTransaction().add(R.id.container_layout, fragmentFavorite, "3").hide(fragmentFavorite).commit();
+        fm.beginTransaction().add(R.id.container_layout, fragmentTv, "2").hide(fragmentTv).commit();
+        fm.beginTransaction().add(R.id.container_layout, fragmentMovie, "1").commit();
 
         if(savedInstanceState == null){
             navigationBottom.setSelectedItemId(R.id.navigation_movie);
@@ -57,17 +63,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (menuItem.getItemId()){
             case R.id.navigation_movie:
-                loadFragment(new MovieFragment());
+                //loadFragment(new MovieFragment());
+                fm.beginTransaction().hide(active).show(fragmentMovie).commit();
+                active = fragmentMovie;
                 setTitle(R.string.app_name);
                 return true;
 
             case R.id.navigation_tv:
-                loadFragment(new TvFragment());
+                //loadFragment(new TvFragment());
+                fm.beginTransaction().hide(active).show(fragmentTv).commit();
+                active = fragmentTv;
                 setTitle(R.string.app_name);
                 return true;
 
             case R.id.navigation_favorite:
-                loadFragment(new FavoriteFragment());
+                //loadFragment(new FavoriteFragment());
+                fm.beginTransaction().hide(active).show(fragmentFavorite).commit();
+                active = fragmentFavorite;
                 setTitle(R.string.title_favorite);
                 return true;
         }
