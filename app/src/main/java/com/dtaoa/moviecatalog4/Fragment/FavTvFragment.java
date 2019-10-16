@@ -50,6 +50,7 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        FRAGMENT_TAG = getClass().getSimpleName();
         return inflater.inflate(R.layout.fragment_fav_tv, container, false);
 
     }
@@ -61,6 +62,7 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
         favProgressBar = view.findViewById(R.id.progressBarFavTv);
         rvFvTv = view.findViewById(R.id.rv_fragment_fav_tv);
         rvFvTv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvFvTv.setHasFixedSize(true);
         adapter = new FavoriteAdapter(getActivity());
         adapter.notifyDataSetChanged();
         rvFvTv.setAdapter(adapter);
@@ -84,28 +86,18 @@ public class FavTvFragment extends Fragment implements LoadDataTvCallback {
         //Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();
         Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
         detailIntent.putExtra(DetailActivity.EXTRA_DATA, data);
-        detailIntent.putExtra(DetailActivity.EXTRA_TYPE, "movie");
+        detailIntent.putExtra(DetailActivity.EXTRA_TYPE, "tv");
         detailIntent.putExtra(DetailActivity.EXTRA_FAVORITE, "Y");
         detailIntent.putExtra(DetailActivity.EXTRA_POSITION, FRAGMENT_TAG);
         startActivityForResult(detailIntent, 1);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            if (resultCode == DetailActivity.RESULT_DELETE) {}
-            int position = data.getIntExtra(DetailActivity.EXTRA_POSITION, 0);
-            adapter.removeItem(position);
-        }
-    }
-
     private static class LoadDataTvAsync extends AsyncTask<Void, Void, ArrayList<DataModel>> {
 
         private final WeakReference<FavoriteHelper> weakFavHelper;
-        private final WeakReference<FavTvFragment> weakCallback;
+        private final WeakReference<LoadDataTvCallback> weakCallback;
 
-        private LoadDataTvAsync(FavoriteHelper favoriteHelper, FavTvFragment callback) {
+        private LoadDataTvAsync(FavoriteHelper favoriteHelper, LoadDataTvCallback callback) {
             weakFavHelper = new WeakReference<>(favoriteHelper);
             weakCallback = new WeakReference<>(callback);
         }

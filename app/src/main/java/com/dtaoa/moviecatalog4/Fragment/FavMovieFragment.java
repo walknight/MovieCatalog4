@@ -94,7 +94,7 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
     private static class LoadDataAsync extends AsyncTask<Void, Void, ArrayList<DataModel>> {
 
         private final WeakReference<FavoriteHelper> weakFavHelper;
-        private final WeakReference<LoadDataCallback > weakCallback;
+        private final WeakReference<LoadDataCallback> weakCallback;
 
         private LoadDataAsync(FavoriteHelper favoriteHelper, LoadDataCallback callback) {
             weakFavHelper = new WeakReference<>(favoriteHelper);
