@@ -164,9 +164,9 @@ public class DetailActivity extends AppCompatActivity {
         long result = FavoriteHelper.insert(values);
 
         if(result > 0){
-            Toast.makeText(this, selectedData.getTitle() + " telah ditambahkan kedalam favorit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DetailActivity.this, R.string.msg_favorite_success, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Gagal menambah favorit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DetailActivity.this, R.string.msg_favorite_failed, Toast.LENGTH_SHORT).show();
         }
     }
 

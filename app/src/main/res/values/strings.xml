@@ -19,6 +19,8 @@
     <string name="del_favorite">Delete</string>
     <string name="msg_delete_success">Success! deleted item.</string>
     <string name="msg_delete_failed">Failed! deleted item.</string>
+    <string name="msg_favorite_success">add to favorite</string>
+    <string name="msg_favorite_failed">Failed to add favorite</string>
 
     <!-- DIALOG FAVORIT -->
     <string name="titleDialog">Delete Favorite</string>

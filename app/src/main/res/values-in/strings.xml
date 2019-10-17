@@ -20,6 +20,8 @@
     <string name="del_favorite">Hapus</string>
     <string name="msg_delete_success">Berhasil! hapus item.</string>
     <string name="msg_delete_failed">Gagal! hapus item.</string>
+    <string name="msg_favorite_success">telah ditambahkan kedalam favorit</string>
+    <string name="msg_favorite_failed">Gagal menambah favorit</string>
 
     <!-- DIALOG FAVORIT -->
     <string name="titleDialog">Hapus Kesukaan</string>
