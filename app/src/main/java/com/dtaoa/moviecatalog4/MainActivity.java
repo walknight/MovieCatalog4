@@ -28,12 +28,6 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    final Fragment fragmentMovie = new MovieFragment();
-    final Fragment fragmentTv = new TvFragment();
-    final Fragment fragmentFavorite = new FavoriteFragment();
-    final FragmentManager fm = getSupportFragmentManager();
-    Fragment active = fragmentMovie;
-
     AlertDialog dialogLang;
     int checkedItem = 0;
     CharSequence[] options = {"Bahasa", "English"};
@@ -48,9 +42,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView navigationBottom = findViewById(R.id.btm_navigation);
         navigationBottom.setOnNavigationItemSelectedListener(this);
 
-        fm.beginTransaction().add(R.id.container_layout, fragmentFavorite, "3").hide(fragmentFavorite).commit();
-        fm.beginTransaction().add(R.id.container_layout, fragmentTv, "2").hide(fragmentTv).commit();
-        fm.beginTransaction().add(R.id.container_layout, fragmentMovie, "1").commit();
+        loadFragment(new MovieFragment());
 
         if(savedInstanceState == null){
             navigationBottom.setSelectedItemId(R.id.navigation_movie);
@@ -63,23 +55,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (menuItem.getItemId()){
             case R.id.navigation_movie:
-                //loadFragment(new MovieFragment());
-                fm.beginTransaction().hide(active).show(fragmentMovie).commit();
-                active = fragmentMovie;
+                loadFragment(new MovieFragment());
                 setTitle(R.string.app_name);
                 return true;
 
             case R.id.navigation_tv:
-                //loadFragment(new TvFragment());
-                fm.beginTransaction().hide(active).show(fragmentTv).commit();
-                active = fragmentTv;
+                loadFragment(new TvFragment());
                 setTitle(R.string.app_name);
                 return true;
 
             case R.id.navigation_favorite:
-                //loadFragment(new FavoriteFragment());
-                fm.beginTransaction().hide(active).show(fragmentFavorite).commit();
-                active = fragmentFavorite;
+                loadFragment(new FavoriteFragment());
                 setTitle(R.string.title_favorite);
                 return true;
         }
@@ -101,11 +87,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //Log.d("RESULT CODE", String.valueOf(requestCode));
         if (resultCode == RESULT_OK) {
-            //String stredittext = data.getStringExtra("id");
             //Log.d("RESULT MAIN", stredittext);
             loadFragment(new FavoriteFragment());
         }
