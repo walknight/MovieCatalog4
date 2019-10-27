@@ -27,6 +27,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         notifyDataSetChanged();
     }
 
+    public ArrayList<DataModel> getListData(){ return mData; }
+
     @NonNull
     @Override
     public DataViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

@@ -28,6 +28,12 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    final Fragment fragmentMovie = new MovieFragment();
+    final Fragment fragmentTv = new TvFragment();
+    final Fragment fragmentFavorite = new FavoriteFragment();
+    final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = fragmentMovie;
+
     AlertDialog dialogLang;
     int checkedItem = 0;
     CharSequence[] options = {"Bahasa", "English"};
@@ -42,7 +48,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView navigationBottom = findViewById(R.id.btm_navigation);
         navigationBottom.setOnNavigationItemSelectedListener(this);
 
-        loadFragment(new MovieFragment());
+        fm.beginTransaction().add(R.id.container_layout, fragmentFavorite, "3");
+        fm.beginTransaction().add(R.id.container_layout, fragmentTv, "2");
+        fm.beginTransaction().add(R.id.container_layout, fragmentMovie, "1");
 
         if(savedInstanceState == null){
             navigationBottom.setSelectedItemId(R.id.navigation_movie);
