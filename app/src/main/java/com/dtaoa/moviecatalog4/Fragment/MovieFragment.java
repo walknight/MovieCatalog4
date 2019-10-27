@@ -16,9 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.dtaoa.moviecatalog4.Adapter.DataAdapter;
+import com.dtaoa.moviecatalog4.adapter.DataAdapter;
 import com.dtaoa.moviecatalog4.DetailActivity;
 import com.dtaoa.moviecatalog4.R;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;

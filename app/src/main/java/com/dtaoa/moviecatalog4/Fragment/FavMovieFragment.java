@@ -12,19 +12,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.dtaoa.moviecatalog4.Adapter.FavoriteAdapter;
-import com.dtaoa.moviecatalog4.Db.FavoriteHelper;
+import com.dtaoa.moviecatalog4.adapter.FavoriteAdapter;
+import com.dtaoa.moviecatalog4.db.FavoriteHelper;
 import com.dtaoa.moviecatalog4.DetailActivity;
 import com.dtaoa.moviecatalog4.Helper.MappingHelper;
 import com.dtaoa.moviecatalog4.R;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

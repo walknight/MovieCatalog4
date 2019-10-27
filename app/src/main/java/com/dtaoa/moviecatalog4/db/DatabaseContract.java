@@ -1,4 +1,4 @@
-package com.dtaoa.moviecatalog4.Db;
+package com.dtaoa.moviecatalog4.db;
 
 import android.provider.BaseColumns;
 

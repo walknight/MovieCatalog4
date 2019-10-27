@@ -1,4 +1,4 @@
-package com.dtaoa.moviecatalog4.Db;
+package com.dtaoa.moviecatalog4.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.provider.BaseColumns._ID;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.TABLE_NAME;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.TYPE;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TABLE_NAME;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TYPE;
 
 public class FavoriteHelper {
     private static final String DATABASE_TABLE = TABLE_NAME;

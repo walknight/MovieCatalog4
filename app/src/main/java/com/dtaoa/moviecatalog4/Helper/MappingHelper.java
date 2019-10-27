@@ -7,14 +7,14 @@ import com.dtaoa.moviecatalog4.ViewModel.DataModel;
 import java.util.ArrayList;
 
 import static android.provider.BaseColumns._ID;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.GENRE;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.POSTER;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.RATINGS;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.SINOPSIS;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.THUMBNAIL;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.TITLE;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.TYPE;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.YEAR;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.GENRE;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.POSTER;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.RATINGS;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.SINOPSIS;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.THUMBNAIL;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TITLE;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TYPE;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.YEAR;
 
 public class MappingHelper {
 

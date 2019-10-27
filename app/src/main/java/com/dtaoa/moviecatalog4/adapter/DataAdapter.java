@@ -1,4 +1,4 @@
-package com.dtaoa.moviecatalog4.Adapter;
+package com.dtaoa.moviecatalog4.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

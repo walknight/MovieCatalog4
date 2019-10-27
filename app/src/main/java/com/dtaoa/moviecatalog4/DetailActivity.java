@@ -1,12 +1,9 @@
 package com.dtaoa.moviecatalog4;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,21 +14,17 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.dtaoa.moviecatalog4.Adapter.FavoriteAdapter;
-import com.dtaoa.moviecatalog4.Db.FavoriteHelper;
-import com.dtaoa.moviecatalog4.Fragment.FavMovieFragment;
-import com.dtaoa.moviecatalog4.Fragment.FavTvFragment;
-import com.dtaoa.moviecatalog4.Fragment.MovieFragment;
+import com.dtaoa.moviecatalog4.db.FavoriteHelper;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;
 
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.GENRE;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.POSTER;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.RATINGS;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.SINOPSIS;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.THUMBNAIL;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.TITLE;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.TYPE;
-import static com.dtaoa.moviecatalog4.Db.DatabaseContract.FavoriteColumn.YEAR;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.GENRE;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.POSTER;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.RATINGS;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.SINOPSIS;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.THUMBNAIL;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TITLE;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TYPE;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.YEAR;
 
 public class DetailActivity extends AppCompatActivity {
 
