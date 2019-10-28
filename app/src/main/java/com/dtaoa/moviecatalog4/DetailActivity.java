@@ -1,6 +1,7 @@
 package com.dtaoa.moviecatalog4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import com.dtaoa.moviecatalog4.db.FavoriteHelper;
 import com.dtaoa.moviecatalog4.ViewModel.DataModel;
 
 import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.GENRE;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.ID_API;
 import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.POSTER;
 import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.RATINGS;
 import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.SINOPSIS;
@@ -91,6 +93,7 @@ public class DetailActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_favorite, menu);
         String getFavorite = getIntent().getStringExtra(EXTRA_FAVORITE);
         MenuItem btnIconFav = menu.findItem(R.id.bt_ic_fav);
+        MenuItem btnIconFavSelected = menu.findItem(R.id.bt_ic_fav_selected);
         MenuItem btnIconDel = menu.findItem(R.id.bt_ic_delete);
 
         Log.d("FAVORITE", getFavorite);
@@ -98,11 +101,22 @@ public class DetailActivity extends AppCompatActivity {
         if(getFavorite.equals("Y")){
             btnIconDel.setVisible(true);
             btnIconFav.setVisible(false);
+            btnIconFavSelected.setVisible(false);
         }
         else
         {
-            btnIconDel.setVisible(false);
-            btnIconFav.setVisible(true);
+            if(favoriteHelper.isFavorite(String.valueOf(selectedData.getId()))){
+                btnIconDel.setVisible(false);
+                btnIconFavSelected.setVisible(true);
+                btnIconFav.setVisible(false);
+            }
+            else
+            {
+                btnIconDel.setVisible(false);
+                btnIconFavSelected.setVisible(false);
+                btnIconFav.setVisible(true);
+            }
+
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -116,6 +130,7 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.bt_ic_fav:
                 saveFavorite();
+                item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_red));
                 break;
             case R.id.bt_ic_delete:
                 deleteFavorite(selectedData.getId());
@@ -146,6 +161,7 @@ public class DetailActivity extends AppCompatActivity {
         String type = getIntent().getStringExtra(EXTRA_TYPE);
 
         ContentValues values = new ContentValues();
+        values.put(ID_API, selectedData.getId());
         values.put(TITLE, selectedData.getTitle() );
         values.put(SINOPSIS, selectedData.getSinopsis());
         values.put(GENRE, selectedData.getGenre());

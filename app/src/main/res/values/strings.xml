@@ -39,6 +39,7 @@
     <string name="URL_TV">https://api.themoviedb.org/3/discover/tv?api_key=</string>
     <string name="path_thumbnail">https://image.tmdb.org/t/p/w185/</string>
     <string name="path_poster">https://image.tmdb.org/t/p/w780/</string>
+    <string name="icon_favorite">Favorite</string>
 
 
 </resources>

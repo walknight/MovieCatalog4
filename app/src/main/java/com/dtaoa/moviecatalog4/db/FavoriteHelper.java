@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.provider.BaseColumns._ID;
+import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.ID_API;
 import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TABLE_NAME;
 import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TYPE;
 
@@ -45,6 +46,17 @@ public class FavoriteHelper {
 
     public Cursor getFavorite(String type){
         return database.rawQuery("Select * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ? ", new String[]{type});
+    }
+
+    public boolean isFavorite(String id){
+
+        Cursor cursor = database.rawQuery("Select * FROM " + TABLE_NAME + " WHERE " + ID_API + " = ? ", new String[]{id});
+        if(cursor.getCount() > 0)
+            return true;
+
+        cursor.close();
+        return false;
+
     }
 
     public static long insert(ContentValues values) {

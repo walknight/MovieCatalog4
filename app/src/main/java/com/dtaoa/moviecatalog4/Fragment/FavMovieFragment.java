@@ -69,16 +69,7 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
         favHelper = FavoriteHelper.getInstance(getActivity().getApplicationContext());
         favHelper.open();
 
-        if (savedInstanceState == null) {
-            new LoadDataAsync(favHelper, this).execute();
-        } else {
-            ArrayList<DataModel> list = savedInstanceState.getParcelableArrayList(EXTRA_STATE);
-            if(list != null){
-                adapter.setListFavorite(list);
-                showLoading(false);
-            }
-        }
-
+        new LoadDataAsync(favHelper, this).execute();
 
         adapter.setOnItemClickCallback(new FavoriteAdapter.OnItemClickCallback() {
             @Override
@@ -89,11 +80,6 @@ public class FavMovieFragment extends Fragment implements LoadDataCallback {
 
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(EXTRA_STATE, adapter.getListFavorite());
-    }
 
     private void showDetail(DataModel data){
         //Toast.makeText(getContext(), "Anda Memilih Judul " + data.getTitle(), Toast.LENGTH_SHORT).show();

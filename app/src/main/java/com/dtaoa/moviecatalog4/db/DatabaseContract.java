@@ -7,6 +7,7 @@ public class DatabaseContract {
     public static final class FavoriteColumn implements BaseColumns{
         public static final String TABLE_NAME = "favorite";
 
+        public static final String ID_API = "id_api";
         public static final String TITLE = "title";
         public static final String SINOPSIS = "sinopsis";
         public static final String GENRE = "genre";

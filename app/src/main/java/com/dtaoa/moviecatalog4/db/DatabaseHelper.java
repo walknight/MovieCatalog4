@@ -3,12 +3,13 @@ package com.dtaoa.moviecatalog4.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
 import static com.dtaoa.moviecatalog4.db.DatabaseContract.FavoriteColumn.TABLE_NAME;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static String DATABASE_NAME = "dbmoviecatalog";
+    private static String DATABASE_NAME = "dbmoviecatalog";
 
     private static final int DATABASE_VERSION = 1;
 
@@ -21,9 +22,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL," +
+                    " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL)",
             TABLE_NAME,
             DatabaseContract.FavoriteColumn._ID,
+            DatabaseContract.FavoriteColumn.ID_API,
             DatabaseContract.FavoriteColumn.TITLE,
             DatabaseContract.FavoriteColumn.SINOPSIS,
             DatabaseContract.FavoriteColumn.GENRE,

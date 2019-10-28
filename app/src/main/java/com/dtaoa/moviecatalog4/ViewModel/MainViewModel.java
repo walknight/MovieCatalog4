@@ -28,7 +28,7 @@ public class MainViewModel extends ViewModel {
         final ArrayList<DataModel> listItems = new ArrayList<>();
         final String API_KEY = BuildConfig.API_KEY;
         String URL;
-        if(language.equals("in") || language == "in_ID"){
+        if(language.equals("in") || language.equals("in_ID")){
             language = "id";
         }
         if(type.equals("movie")){
@@ -50,13 +50,15 @@ public class MainViewModel extends ViewModel {
                     for(int i = 0; i < list.length(); i++){
                         JSONObject items = list.getJSONObject(i);
                         DataModel itemData = new DataModel();
-                        if(type == "movie"){
+                        int id = items.getInt("id");
+                        if(type.equals("movie")){
                             title = items.getString("title");
                             release = items.getString("release_date");
                         } else {
                             release = items.getString("first_air_date");
                             title = items.getString("name");
                         }
+                        itemData.setId(id);
                         itemData.setTitle(title);
                         itemData.setGenre(items.getString("genre_ids"));
                         itemData.setYear(release);
