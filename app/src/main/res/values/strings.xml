@@ -6,7 +6,10 @@
     <string name="title_tv">TV Show</string>
     <string name="title_favorite">Favorite</string>
 
-    <string name="icon_settings">Change Language</string>
+    <string name="settings_menu">Settings</string>
+    <string name="icon_txt_lang">Change Language</string>
+    <string name="icon_txt_search">Search</string>
+    <string name="icon_txt_reminder">Reminder</string>
     <string name="lbl_duration">0h 0m</string>
     <string name="lbl_ratings">0.0</string>
     <string name="lbl_sinopsis">Synopsis</string>
@@ -40,6 +43,7 @@
     <string name="path_thumbnail">https://image.tmdb.org/t/p/w185/</string>
     <string name="path_poster">https://image.tmdb.org/t/p/w780/</string>
     <string name="icon_favorite">Favorite</string>
+    <string name="search_hint">Input Title</string>
 
 
 </resources>

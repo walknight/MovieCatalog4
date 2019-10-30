@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/bt_ic_lang"
-        android:title="@string/icon_settings"
-        android:icon="@drawable/ic_language"
+    <item android:id="@+id/bt_search"
+        android:title="@string/icon_txt_search"
+        android:icon="@drawable/ic_search_white_24dp"
         app:showAsAction="always"/>
+
+    <group android:menuCategory="container">
+        <item android:id="@+id/settings_menu"
+            android:title="@string/settings_menu"
+            android:icon = "@drawable/ic_settings_white_24dp"
+            app:showAsAction="always">
+
+            <menu>
+                <item
+                    android:id="@+id/bt_ic_lang"
+                    android:title="@string/icon_txt_lang"
+                    android:icon="@drawable/ic_language"
+                    app:showAsAction="always"/>
+
+                <item
+                    android:id="@+id/bt_ic_reminder"
+                    android:title="@string/icon_txt_reminder"
+                    android:icon="@drawable/ic_access_alarms_white_24dp"
+                    app:showAsAction="always"/>
+
+            </menu>
+        </item>
+    </group>
+
+
 </menu>
